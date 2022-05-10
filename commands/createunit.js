@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { name } = require('ci-info');
 const { MessageEmbed } = require('discord.js');
 const fs = require('node:fs');
 
