@@ -1,0 +1,4 @@
+shields: 0 
+health: 30
+shield damage: 1
+damage: 2

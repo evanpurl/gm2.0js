@@ -52,11 +52,32 @@ module.exports = {
                             )
                             .setTimestamp() // Embed end
                         interaction.reply({embeds: [unitembed]});
+                        try {
+                            if (!fs.existsSync(`./servers/${interaction.guild.id}/units`)){
+                                fs.mkdir(`./servers/${interaction.guild.id}/units`, {recursive: true}, (err)=> {
+                                    if (err){
+                                        console.log(err);
+                                    };
+                                    
+                                });
+                            }
+                            fs.writeFile(`./servers/${interaction.guild.id}/units/${interaction.options.getString('unit_name')}.txt`, `shields: ${interaction.options.getInteger('shields')} \nhealth: ${interaction.options.getInteger('health')}\nshield damage: ${interaction.options.getInteger('shield_damage')}\ndamage: ${interaction.options.getInteger('damage')}`, {encoding: 'utf-8', flag: 'w'}, (err)=> {
+                                if (err){
+                                    console.log(err);
+                                };
+                            });
+                        } catch(err){
+                            if (err){
+                                console.log(err);
+                            };
+                        }
                     } else {
                         interaction.reply(`You do not have the role **${data}** to use that command.`);
+                        return;
                     };
                 } else {
                     interaction.reply("DM role does not exist, reconfigure it with /config.");
+                    return;
                 };
 			});
 			

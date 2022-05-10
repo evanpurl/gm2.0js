@@ -1,0 +1,4 @@
+shields: 10000 
+health: 12500
+shield damage: 2250
+damage: 4500
