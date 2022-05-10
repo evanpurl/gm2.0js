@@ -42,10 +42,7 @@ module.exports = {
             //     return;
 			// });
             const file = new MessageAttachment(`./servers/${guild.id}/players/${interaction.user.id}.txt`)
-            interaction.reply('Here you go!');
-            interaction.channel.send({
-                files: [file]
-            });
+            interaction.reply({ content: 'Here you go!', files: [file], ephemeral: true });
             return;
 		} else {
             interaction.reply("User's group not found.")
