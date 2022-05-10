@@ -29,11 +29,10 @@ module.exports = {
                         interaction.reply(`Role with the name **${interaction.options.getString('rolename')}** not found`);
                     } else {
                         if (fs.existsSync(`./servers/${interaction.guild.id}/dmrole.txt`)) {
-                            fs.rmSync(`./servers/${interaction.guild.id}/dmrole.txt`, { recursive: true, force: true });
-                            fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "a+" }, (err)=> {if (err) {console.error(err);}})
+                            fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "w" }, (err)=> {if (err) {console.error(err);}})
                             interaction.reply("DM role has been set.");
                         } else {
-                            fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "a+" }, (err)=> {if (err) {console.error(err);}})
+                            fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "w" }, (err)=> {if (err) {console.error(err);}})
                             interaction.reply("DM role has been set.");
                         };
                     }
