@@ -28,13 +28,6 @@ client.on('guildCreate', (guild) => {
 	
 });
 
-client.on('guildDelete', (guild) => {
-    console.log("Left a guild: " + guild.name);
-    if (fs.existsSync(`./servers/${guild.id}`)) {
-		fs.rmSync(`./servers/${guild.id}`, { recursive: true, force: true });
-	}
-});
-
 client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isCommand()) return;
 
