@@ -50,7 +50,7 @@ module.exports = {
                                 { name: 'Damage:', value: String(interaction.options.getInteger('damage')), inline: true},
                             )
                             .setTimestamp() // Embed end
-                        interaction.reply({embeds: [unitembed]});
+                        interaction.reply({embeds: [unitembed], ephemeral: true });
                         try {
                             if (!fs.existsSync(`./servers/${interaction.guild.id}/units`)){
                                 fs.mkdir(`./servers/${interaction.guild.id}/units`, {recursive: true}, (err)=> {
@@ -71,17 +71,17 @@ module.exports = {
                             };
                         }
                     } else {
-                        interaction.reply(`You do not have the role **${data}** to use that command.`);
+                        interaction.reply({content: `You do not have the role **${data}** to use that command.`, ephemeral: true });
                         return;
                     };
                 } else {
-                    interaction.reply("DM role does not exist, reconfigure it with /config.");
+                    interaction.reply({content: "DM role does not exist, reconfigure it with /config.", ephemeral: true });
                     return;
                 };
 			});
 			
 		} else {
-            interaction.reply("DM role not found, ending command.");
+            interaction.reply({content: "DM role not found, ending command.", ephemeral: true });
 			return;
 		};
 	}

@@ -7,7 +7,7 @@ module.exports = {
 
 	async execute(interaction) {
         try {
-            const mesg = await interaction.reply({ content: "Pong!", fetchReply: true });
+            const mesg = await interaction.reply({ content: "Pong!", fetchReply: true, ephemeral: true  });
 
             await interaction.editReply({ content: `Bot Latency: \`${mesg.createdTimestamp - interaction.createdTimestamp}ms\`` });
         } catch(err) {

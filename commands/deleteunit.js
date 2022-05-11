@@ -31,29 +31,29 @@ module.exports = {
                                 });
                                 const match = closest_match.closestMatch(unitname, units);
                                 if (match) { // delete unit here.
-                                    interaction.reply(`Deleting unit with the name ${match}.`)
+                                    interaction.reply({content: `Deleting unit with the name ${match}.`, ephemeral: true })
                                     fs.rm(`./servers/${guild.id}/units/${match}.txt`, err => {
                                         if (err){
                                             console.log(err);
                                         }
                                     })
                                 } else {
-                                    interaction.reply("Unit not found.")
+                                    interaction.reply({content: "Unit not found.", ephemeral: true })
                                 }
                             }
                             
                         }); // Read directory.
                     } else {
-                        interaction.reply(`You do not have the role **${data}** to use that command.`);
+                        interaction.reply({content: `You do not have the role **${data}** to use that command.`, ephemeral: true });
                         return;
                     };
                 } else {
-                    interaction.reply("DM role does not exist, reconfigure it with /config.");
+                    interaction.reply({content: "DM role does not exist, reconfigure it with /config.", ephemeral: true });
                     return;
                 };
         }); // read dmrole file.
 	} else {
-        interaction.reply("DM role not found, ending command.");
+        interaction.reply({content: "DM role not found, ending command.", ephemeral: true });
         return;
     };
 }

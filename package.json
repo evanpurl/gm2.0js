@@ -133,7 +133,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "node main.js",
+    "deploy": "node deploycommands.js",
+    "nm": "nodemon main.js"
   },
   "author": "",
   "license": "ISC"

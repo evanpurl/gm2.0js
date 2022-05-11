@@ -12,40 +12,11 @@ module.exports = {
         const { guild } = interaction;
 
         if (fs.existsSync(`./servers/${guild.id}/players/${interaction.user.id}.txt`)) {
-			// file = fs.readFile(`./servers/${guild.id}/players/${interaction.user.id}.txt`, 'utf-8',(err, data)=> {
-            //     const dat = data.length
-            //     if (dat >= 1000) {
-            //         const unitdata = `More units than possible:\n***${String(data).substring(0,990)}***`
-            //         const unitembed = new MessageEmbed() // Embed Start
-            //         .setColor('#FFFFFF')
-            //         .setTitle(`${interaction.user.username}'s units.`)
-            //         .setAuthor({name: `Command ran by :${interaction.user.username}`})
-            //         .setDescription('Units in your group')
-            //         .addFields(
-            //             { name: 'Units:', value: unitdata, inline: true},
-            //         )
-            //         .setTimestamp() // Embed end
-            //         interaction.reply({embeds: [unitembed]});
-            //     } else {
-            //         const unitdata = `***${String(data)}***`
-            //         const unitembed = new MessageEmbed() // Embed Start
-            //         .setColor('#FFFFFF')
-            //         .setTitle(`${interaction.user.username}'s units.`)
-            //         .setAuthor({name: `Command ran by :${interaction.user.username}`})
-            //         .setDescription('Units in your group')
-            //         .addFields(
-            //             { name: 'Units:', value: unitdata, inline: true},
-            //         )
-            //         .setTimestamp() // Embed end
-            //         interaction.reply({embeds: [unitembed]});
-            //     }
-            //     return;
-			// });
             const file = new MessageAttachment(`./servers/${guild.id}/players/${interaction.user.id}.txt`)
             interaction.reply({ content: 'Here you go!', files: [file], ephemeral: true });
             return;
 		} else {
-            interaction.reply("User's group not found.")
+            interaction.reply({content: "User's group not found.", ephemeral: true })
             return;
         };
 }

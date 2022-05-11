@@ -14,6 +14,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log(`I have signed in as user ${client.user.username}!`);
+	client.user.setActivity('Powered by Nite Life Software:\nhttps://www.nitelifesoftware.com', {type: 'PLAYING'});
 });
 
 //joined a server

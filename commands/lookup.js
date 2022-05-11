@@ -29,7 +29,7 @@ module.exports = {
                         { name: 'Stats:', value: `***${String(data)}***`, inline: true},
                     )
                     .setTimestamp() // Embed end
-                interaction.reply({embeds: [unitembed]});
+                interaction.reply({embeds: [unitembed], ephemeral: true});
                 return;
 			});
 			
@@ -55,11 +55,11 @@ module.exports = {
                                     { name: 'Stats:', value: `***${String(data)}***`, inline: true},
                                 )
                                 .setTimestamp() // Embed end
-                            interaction.reply({embeds: [unitembed]});
+                            interaction.reply({embeds: [unitembed], ephemeral: true});
                             return;
                         });
                     } else {
-                        interaction.reply("No unit was found.")
+                        interaction.reply({content: "No unit was found.", ephemeral: true})
                     }
 	}
 })

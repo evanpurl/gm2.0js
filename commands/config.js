@@ -26,14 +26,14 @@ module.exports = {
                         return role.name === rolename
                     });
                     if (!muterole) {
-                        interaction.reply(`Role with the name **${interaction.options.getString('rolename')}** not found`);
+                        interaction.reply({content: `Role with the name **${interaction.options.getString('rolename')}** not found`, ephemeral: true});
                     } else {
                         if (fs.existsSync(`./servers/${interaction.guild.id}/dmrole.txt`)) {
                             fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "w" }, (err)=> {if (err) {console.error(err);}})
-                            interaction.reply("DM role has been set.");
+                            interaction.reply({content: "DM role has been set.", ephemeral: true });
                         } else {
                             fs.writeFile(`./servers/${interaction.guild.id}/dmrole.txt`, interaction.options.getString('rolename'), { encoding: "utf8", flag: "w" }, (err)=> {if (err) {console.error(err);}})
-                            interaction.reply("DM role has been set.");
+                            interaction.reply({content: "DM role has been set.", ephemeral: true });
                         };
                     }
                     
@@ -43,7 +43,7 @@ module.exports = {
             }
 
         } else {
-            interaction.reply(`You do not have the proper permissions to use the command "/${commandName}".`);
+            interaction.reply({content: `You do not have the proper permissions to use the command "/${commandName}".`, ephemeral: true});
             return;
         }
 	}
