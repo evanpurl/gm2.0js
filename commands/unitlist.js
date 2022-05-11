@@ -21,13 +21,17 @@ module.exports = {
                     filenames.forEach(file => {
                         units.push(`${file.replace('.txt', '')}\n`);
                     });
-                    interaction.reply({ content: `Server units:\n**${units.join('')}**`, ephemeral: true });
+                    if (units.join('').length >= 1500){
+                        interaction.reply({content: "Too many units to display, please delete some and try again.", ephemeral: true})
+                    } else{
+                        interaction.reply({ content: `Server units:\n**${units.join('')}**`, ephemeral: true });
                     return;
+                    }
                 }
             });
 		} else {
             interaction.reply({content: "Units not found.", ephemeral: true });
             return;
         };
-}
+    }
 }

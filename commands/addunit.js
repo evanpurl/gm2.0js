@@ -89,7 +89,7 @@ module.exports = {
                         }
                     });
                 };
-                interaction.reply({content: `Your unit(s) ${String(addedunits)} have been added to your group.`, ephemeral: true});
+                interaction.reply({content: `Your unit(s) **${addedunits.join(', ')}** have been added to your group.`, ephemeral: true});
             } catch (err){
                 console.log(err);
             }
