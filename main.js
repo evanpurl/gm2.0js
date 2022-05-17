@@ -3,6 +3,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/token.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
+module.exports.bot = client;
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -14,7 +15,6 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log(`I have signed in as user ${client.user.username}!`);
-	
 	client.user.setActivity('Powered by Nite Life Software:\nhttps://www.nitelifesoftware.com', {type: 'PLAYING'});
 });
 
