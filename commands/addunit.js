@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
 const fs = require('node:fs');
 const closest_match = require("closest-match");
 
