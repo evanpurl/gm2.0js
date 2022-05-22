@@ -13,7 +13,7 @@ module.exports = {
 
         if (fs.existsSync(`./servers/${guild.id}/players/${interaction.user.id}.txt`)) {
             const file = new MessageAttachment(`./servers/${guild.id}/players/${interaction.user.id}.txt`)
-            interaction.reply({ content: 'Here you go!', files: [file]});
+            interaction.reply({ content: 'Here you go!', files: [file], ephemeral: true });
             return;
 		} else {
             interaction.reply({content: "User's group not found.", ephemeral: true })
