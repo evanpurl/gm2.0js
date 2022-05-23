@@ -16,45 +16,67 @@ module.exports = {
         const { guild } = interaction;
         const playertwo = interaction.guild.members.cache.get(interaction.options.getUser('user').id) || interaction.guild.members.cache.fetch(interaction.options.getUser('user').id)
         const playerone = interaction;
-        if (fs.existsSync(`./servers/${guild.id}/players/${playerone.user.id}.txt`)) { // Player one's group finder.
-            playerone.found = true;
-		} else {
-            playerone.found = false;
-        };
-        if (fs.existsSync(`./servers/${guild.id}/players/${playertwo.user.id}.txt`)) { // Player two's group finder.
-            playertwo.found = true;
-		} else {
-            playertwo.found = false;
-        };
-
-        if (playerone.found && playertwo.found) {
-            // const unitembed = new MessageEmbed() // Embed Start
-            //     .setColor('#FFFFFF')
-            //     .setTitle(`${playerone.user} vs ${playertwo.user}`)
-            //     .setDescription('Battle command')
-            //     .addFields(
-            //         { name: 'Unit Name:', value: interaction.options.getString('unit_name'), inline: true},
-            //         { name: 'Shields:', value: String(interaction.options.getInteger('shields')), inline: true},
-            //         { name: 'Health:', value: String(interaction.options.getInteger('health')), inline: true},
-            //         { name: 'Shield Damage:', value: String(interaction.options.getInteger('shield_damage')), inline: true},
-            //         { name: 'Damage:', value: String(interaction.options.getInteger('damage')), inline: true},
-            //     )
-            //     .setTimestamp() // Embed end
-            interaction.reply("**Groups found, battle command is starting.**")
-            // Battle goes here.
+        if (playerone.user.id === playertwo.user.id){
+            interaction.reply("You cannot battle against yourself.");
         } else{
-            interaction.reply("**Battle command not starting.**") // If group not found, does not start battle.
-            if (playerone.found){
-                interaction.channel.send(`${playerone.user}'s group has been found.`)
-            } else {
-                interaction.channel.send(`${playerone.user}'s group has not been found.`)
+            function gatherdata() {
+                if (fs.existsSync(`./servers/${guild.id}/players/${playerone.user.id}.txt`)) { // Player one's group finder.
+                    playerone.unitnames = fs.readFileSync(`./servers/${guild.id}/players/${playerone.user.id}.txt`, 'utf-8').split("\n")
+                    playerone.found = true;
+                } else {
+                    playerone.found = false;
+                };
+                if (fs.existsSync(`./servers/${guild.id}/players/${playertwo.user.id}.txt`)) { // Player two's group finder.
+                    playertwo.unitnames = fs.readFileSync(`./servers/${guild.id}/players/${playertwo.user.id}.txt`, 'utf-8').split("\n")
+                    playertwo.found = true;
+                } else {
+                    playertwo.found = false;
+                };
             };
-            if (playertwo.found){
-                interaction.channel.send(`${playertwo.user}'s group has been found.`)
-            } else {
-                interaction.channel.send(`${playertwo.user}'s group has not been found.`)
-            }
-        };
+            gatherdata();
+    
+            if (playerone.found && playertwo.found) {
+                playerone.occur = {}
+                playertwo.occur = {}
+                playerone.unitnames.forEach(function(el){
+                    playerone.occur[el] = playerone.occur[el] + 1 || 1;
+                })
+                playertwo.unitnames.forEach(function(el){
+                    playertwo.occur[el] = playertwo.occur[el] + 1 || 1;
+                })
+                playerone.umessage = JSON.stringify(playerone.occur, null, 2).replaceAll('"": 1', "").replaceAll("{", "").replaceAll("}", "").replaceAll(",", "").replaceAll('"', "");
+                if (playerone.umessage.length >= 1000) {
+                    playerone.umessage = "Too many units to display."
+                }
+                playertwo.umessage = JSON.stringify(playertwo.occur, null, 2).replaceAll('"": 1', "").replaceAll("{", "").replaceAll("}", "").replaceAll(",", "").replaceAll('"', "");
+                if (playertwo.umessage.length >= 1000) {
+                    playertwo.umessage = "Too many units to display."
+                }
+                const unitembed = new MessageEmbed() // Embed Start
+                    .setColor('#FFFFFF')
+                    .setTitle(`${playerone.user.username} vs ${playertwo.user.username}`)
+                    .setDescription('Battle command')
+                    .addFields(
+                        { name: `${playerone.user.username}`, value: `${playerone.umessage}`},
+                        { name: `${playertwo.user.username}`, value: `${playertwo.umessage}`},
+                    )
+                    .setTimestamp() // Embed end
+                await interaction.reply({content: "**Groups found, battle command is starting.**", embeds: [unitembed]})
+            } else{
+                interaction.reply("**Battle command not starting.**") // If group not found, does not start battle.
+                if (playerone.found){
+                    interaction.channel.send(`${playerone.user}'s group has been found. Number of units: ${playerone.unitnames.length}`)
+                } else {
+                    interaction.channel.send(`${playerone.user}'s group has not been found.`)
+                };
+                if (playertwo.found){
+                    interaction.channel.send(`${playertwo.user}'s group has been found. Number of units: ${playertwo.unitnames.length}`)
+                } else {
+                    interaction.channel.send(`${playertwo.user}'s group has not been found.`)
+                }
+            };
+        }
+        
         
         
     }

@@ -6,6 +6,6 @@ module.exports = {
 		.setDescription('Command to roll a number from 1-20.'),
 
 	async execute(interaction) {
-        interaction.reply(`Rolled: ${Math.floor(Math.random()*20)+1}`)
+        interaction.reply(`Rolled: **${Math.floor(Math.random()*20)+1}**`)
 	}
 };
