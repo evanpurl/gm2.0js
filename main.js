@@ -14,10 +14,10 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log(`I have signed in as user ${client.user.username}!`);
-	// client.application.commands.fetch('964587881412849674').then( (command) => { // If a command needs to be deleted.
+	// client.application.commands.fetch('978383939058139146').then( (command) => { // If a command needs to be deleted.
 	// 	command.delete()
 	// })
-	client.user.setActivity('Powered by Nite Life Software:\nhttps://www.nitelifesoftware.com', {type: 'PLAYING'});
+	client.user.setActivity('Powered by NLS:\nhttps://www.nitelifesoftware.com', {type: 'PLAYING'});
 });
 
 //joined a server
@@ -44,6 +44,9 @@ client.on('interactionCreate', async (interaction) => {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+
+	if (interaction.isButton()) return;
+
 });
 
 client.on('messageCreate', (message) => {

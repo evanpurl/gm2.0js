@@ -6,7 +6,7 @@ module.exports = {
     
 	data: new SlashCommandBuilder()
 		.setName('unitlist')
-		.setDescription('Command to look up units in your GM group.'),
+		.setDescription('Command to look up units in your server'),
 
 	async execute(interaction) {
         const { guild } = interaction;
